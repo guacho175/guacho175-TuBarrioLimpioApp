@@ -1,0 +1,19 @@
+# Android / Gradle
+/.gradle/
+/build/
+/app/build/
+/local.properties
+
+# IDE / Android Studio
+/.idea/
+/*.iml
+
+# Outputs
+*.apk
+*.aab
+/app/release/
+
+# Keys / signing (NO subir nunca)
+ /keys/
+*.jks
+*.keystore
