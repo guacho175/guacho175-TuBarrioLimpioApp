@@ -32,26 +32,24 @@ object HomeNotificacionesLoader {
 
                 withContext(Dispatchers.Main) {
 
+                    // Se mantiene la referencia a cardNotificaciones y rv
                     val cardNotificaciones =
                         activity.findViewById<MaterialCardView>(R.id.cardNotificaciones)
-                    val txtTitulo =
-                        activity.findViewById<TextView>(R.id.txtTituloNotificaciones)
-                    val txtBadge =
-                        activity.findViewById<TextView>(R.id.txtNotificacionesBadge)
                     val rv =
                         activity.findViewById<RecyclerView>(R.id.rvNotificaciones)
 
+                    // Mostrar la card de notificaciones (que ahora solo contiene el RV)
                     cardNotificaciones.visibility = View.VISIBLE
 
                     if (lista.isEmpty()) {
-                        txtTitulo.text = "Sin notificaciones nuevas"
-                        txtBadge.visibility = View.GONE
+                        // Solo aseguramos que el RV esté oculto y sin adapter
                         rv.visibility = View.GONE
                         rv.adapter = null
+
+                        // NOTA: Si quieres mostrar un Toast o mensaje cuando no hay notificaciones, hazlo aquí.
                     } else {
-                        txtTitulo.text = "Notificaciones recientes"
-                        txtBadge.visibility = View.VISIBLE
-                        txtBadge.text = lista.size.toString()
+                        // Si hay notificaciones, cargamos el adapter.
+                        // La visibilidad (abierto/cerrado) la controla HomeActivity.toggleAcordeonNotificaciones
 
                         rv.adapter = NotificacionesAdapter(
                             lista,
@@ -63,7 +61,7 @@ object HomeNotificacionesLoader {
                             }
                         )
 
-                        // El acordeón parte cerrado; HomeActivity lo controla
+                        // El acordeón parte cerrado por defecto (controlado por HomeActivity)
                         rv.visibility = View.GONE
                     }
                 }
@@ -132,7 +130,7 @@ object HomeNotificacionesLoader {
 
                 withContext(Dispatchers.Main) {
                     Toast.makeText(activity, "Marcada como leída", Toast.LENGTH_SHORT).show()
-                    cargarNotificaciones(activity, token)
+                    cargarNotificaciones(activity, token) // Recargar lista
                 }
 
             } catch (e: Exception) {
