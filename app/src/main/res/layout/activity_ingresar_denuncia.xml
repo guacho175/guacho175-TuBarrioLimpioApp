@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- CABECERA COMÚN -->
+    <include
+        android:id="@+id/includeHeader"
+        layout="@layout/include_header" />
+
+    <!-- CONTENIDO SCROLLEABLE -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="16dp"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/etDescripcion"
+                android:hint="Descripción"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/etDireccion"
+                android:hint="Dirección"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btnObtenerUbicacion"
+                android:text="📍 Obtener ubicación"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tvUbicacion"
+                android:text="Ubicación no disponible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp" />
+
+            <Button
+                android:id="@+id/btnSeleccionarImagen"
+                android:text="📷 Seleccionar imagen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/imagePreview"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_card"
+                android:padding="24dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_image_placeholder" />
+
+
+            <Button
+                android:id="@+id/btnEnviar"
+                android:text="🚨 Enviar denuncia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/holo_red_dark"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="12dp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- PIE COMÚN -->
+    <include
+        android:id="@+id/includeFooter"
+        layout="@layout/include_footer" />
+
+</LinearLayout>

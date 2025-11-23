@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- CABECERA COMÚN -->
+    <include
+        android:id="@+id/includeHeader"
+        layout="@layout/include_header" />
+
+    <!-- CONTENIDO SCROLLEABLE -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/homeScroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:padding="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- CARD SUPERIOR (Bienvenida) -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <!-- Fila saludo + botón -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/txtBienvenida"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Hola, usuario 👋"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:textColor="#B41C1C" />
+
+                        <Button
+                            android:id="@+id/btnIngresarDenuncia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="#B41C1C"
+                            android:text="Ingresar"
+                            android:textColor="#FFFFFF" />
+                    </LinearLayout>
+
+                    <!-- Texto descriptivo -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Desde aquí puedes reportar microbasurales en tu barrio. Selecciona la ubicación en el mapa, agrega una descripción y una foto. Nuestro equipo municipal hará el seguimiento."
+                        android:textColor="#444444"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- SECCIÓN NOTIFICACIONES -->
+            <TextView
+                android:id="@+id/txtTituloNotificaciones"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Notificaciones recientes"
+                android:textStyle="bold"
+                android:background="#B41C1C"
+                android:textColor="#FFFFFF"
+                android:padding="10dp"
+                android:textSize="18sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvNotificaciones"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never"
+                android:layout_marginBottom="22dp" />
+
+            <!-- SECCIÓN MIS DENUNCIAS -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mis denuncias recientes"
+                android:textStyle="bold"
+                android:background="#B41C1C"
+                android:textColor="#FFFFFF"
+                android:padding="10dp"
+                android:textSize="18sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvMisDenuncias"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never"
+                android:layout_marginBottom="32dp" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- PIE COMÚN -->
+    <include
+        android:id="@+id/includeFooter"
+        layout="@layout/include_footer" />
+
+</LinearLayout>

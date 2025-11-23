@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- 🟥 Barra superior -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#D32F2F"
+        android:titleTextColor="@android:color/white"
+        android:title="Detalle de Denuncia"
+        app:titleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"/>
+
+    <!-- Contenido scrolleable entre cabecera y pie -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <!-- ✅ Número de caso -->
+            <TextView
+                android:id="@+id/tvIdDenuncia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Caso Nº 0"
+                android:textStyle="bold"
+                android:textColor="#D32F2F"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Imagen -->
+            <ImageView
+                android:id="@+id/ivImagen"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:layout_marginBottom="16dp"
+                android:background="@color/red" />
+
+            <!-- Descripción -->
+            <TextView
+                android:id="@+id/tvDescripcion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Descripción"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Dirección escrita -->
+            <TextView
+                android:id="@+id/tvDireccion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dirección textual"
+                android:textColor="#333333"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Coordenadas -->
+            <TextView
+                android:id="@+id/tvCoordenadas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Coordenadas"
+                android:textColor="#666666"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Estado -->
+            <TextView
+                android:id="@+id/tvEstado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Estado"
+                android:textColor="#D32F2F"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Fecha -->
+            <TextView
+                android:id="@+id/tvFecha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fecha"
+                android:textColor="#666666" />
+
+            <!-- 🌍 Mapa -->
+            <FrameLayout
+                android:id="@+id/mapContainer"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="16dp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- 🟥 Barra inferior / pie común -->
+    <include
+        android:id="@+id/includeFooter"
+        layout="@layout/include_footer" />
+
+</LinearLayout>

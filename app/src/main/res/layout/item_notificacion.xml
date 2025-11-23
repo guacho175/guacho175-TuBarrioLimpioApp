@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_card">
+
+    <TextView
+        android:id="@+id/txtEstado"
+        android:text="Estado"
+        android:textStyle="bold"
+        android:textColor="@color/dark_red"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/txtMensaje"
+        android:text="Mensaje de notificación"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/txtFecha"
+        android:text="Fecha"
+        android:textSize="12sp"
+        android:textColor="@color/gray"
+        android:layout_marginTop="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnVerDenuncia"
+            android:text="Ver denuncia"
+            android:textAllCaps="false"
+            android:backgroundTint="@color/dark_red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btnMarcarLeida"
+            android:text="Marcar como leída"
+            android:textAllCaps="false"
+            android:layout_marginLeft="12dp"
+            android:backgroundTint="@color/gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>

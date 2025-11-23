@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">TuBarrioLimpioApp</string>
+    <string name="loading_default_message">Enviando...</string>
+    <string name="splash_team_message">Equipo Los Galácticos</string>
+
+</resources>

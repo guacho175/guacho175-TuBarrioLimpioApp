@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- PERMISOS NECESARIOS PARA LA APP -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.TuBarrioLimpioApp"
+        tools:targetApi="31">
+
+        <!-- FileProvider para compartir archivos (fotos de cámara, etc.) -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <!-- SplashActivity: pantalla de inicio tipo Netflix.
+             Es la PRIMERA pantalla que ve el usuario (MAIN + LAUNCHER). -->
+        <activity
+            android:name=".ui.splash.SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.TuBarrio.Splash">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- LoginActivity: pantalla de inicio de sesión.
+             Se abre desde el Splash o desde otras pantallas, pero ya NO es launcher. -->
+        <activity
+            android:name=".ui.auth.LoginActivity"
+            android:exported="false" />
+
+        <!-- RegistrarUsuarioActivity: formulario de registro de nuevos usuarios. -->
+        <activity
+            android:name=".ui.auth.RegistrarUsuarioActivity"
+            android:exported="false" />
+
+        <!-- HomeActivity: pantalla principal de la app para usuarios logueados
+             (listado de denuncias, navegación principal, etc.). -->
+        <activity
+            android:name=".ui.home.HomeActivity"
+            android:exported="false" />
+
+        <!-- IngresarDenunciaActivity: formulario para crear/enviar una nueva denuncia. -->
+        <activity
+            android:name=".ui.ingresar_denuncia.IngresarDenunciaActivity"
+            android:exported="false" />
+
+        <!-- DetalleDenunciaActivity: muestra el detalle de una denuncia seleccionada. -->
+        <activity
+            android:name=".ui.home.DetalleDenunciaActivity"
+            android:exported="false" />
+
+        <!-- MainActivity: actividad contenedora/general (NavHost, etc.).
+             No es pantalla inicial ni visible directamente para el usuario. -->
+        <activity
+            android:name=".utils.MainActivity"
+            android:exported="false" />
+
+        <!-- Clave de la API de Google Maps (para mapas dentro de la app). -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyB2aBXfnCllqnDMRWuYNiPl6Eua_x7aCRo" />
+
+    </application>
+
+</manifest>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Fondo rojo (mismo estilo que login) -->
+    <ImageView
+        android:id="@+id/bgImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bg_red"
+        android:scaleType="centerCrop" />
+
+    <!-- Scroll para pantallas pequeñas -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:padding="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- TÍTULO PRINCIPAL -->
+            <TextView
+                android:text="TU BARRIO LIMPIO"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:gravity="center"
+                android:layout_marginTop="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <!-- SUBTÍTULO -->
+            <TextView
+                android:text="Crea tu cuenta para poder reportar y monitorear focos de microbasurales en tu barrio."
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:layout_marginTop="8dp"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content" />
+
+            <!-- TARJETA BLANCA SEMITRANSPARENTE -->
+            <LinearLayout
+                android:id="@+id/registerCard"
+                android:orientation="vertical"
+                android:layout_marginTop="40dp"
+                android:padding="24dp"
+                android:background="@drawable/login_card_bg"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content">
+
+                <!-- TÍTULO DEL FORM -->
+                <TextView
+                    android:text="Crear cuenta"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="#FFFFFF"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <!-- Nombre de usuario -->
+                <EditText
+                    android:id="@+id/etUsername"
+                    android:hint="Nombre de usuario"
+                    android:layout_marginTop="18dp"
+                    android:padding="12dp"
+                    android:background="@drawable/input_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <!-- Correo -->
+                <EditText
+                    android:id="@+id/etEmail"
+                    android:hint="Correo electrónico"
+                    android:inputType="textEmailAddress"
+                    android:layout_marginTop="12dp"
+                    android:padding="12dp"
+                    android:background="@drawable/input_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <!-- Contraseña -->
+                <EditText
+                    android:id="@+id/etPassword"
+                    android:hint="Contraseña"
+                    android:inputType="textPassword"
+                    android:padding="12dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/input_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <!-- Repetir contraseña -->
+                <EditText
+                    android:id="@+id/etPassword2"
+                    android:hint="Repetir contraseña"
+                    android:inputType="textPassword"
+                    android:padding="12dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/input_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <!-- Botón registrar -->
+                <Button
+                    android:id="@+id/btnRegistrar"
+                    android:text="Crear cuenta"
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="#8e0000"
+                    android:textColor="#FFFFFF"
+                    android:padding="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <!-- Volver a login -->
+                <TextView
+                    android:id="@+id/tvIrALogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="¿Ya tienes cuenta? Inicia sesión"
+                    android:textColor="#FFFFFF"
+                    android:gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

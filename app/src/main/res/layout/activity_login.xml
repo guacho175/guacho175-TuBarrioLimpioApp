@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Fondo rojo -->
+    <ImageView
+        android:id="@+id/bgImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bg_red"
+        android:scaleType="centerCrop" />
+
+    <!-- Scroll para pantallas pequeñas -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:padding="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- TÍTULO PRINCIPAL -->
+            <TextView
+                android:text="TU BARRIO LIMPIO"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:gravity="center"
+                android:layout_marginTop="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <!-- SUBTÍTULO -->
+            <TextView
+                android:text="Únete a Tu Barrio Limpio y ayuda a reportar, monitorear y resolver focos de microbasurales."
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:layout_marginTop="8dp"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content" />
+
+            <!-- TARJETA BLANCA SEMITRANSPARENTE -->
+            <LinearLayout
+                android:id="@+id/loginCard"
+                android:orientation="vertical"
+                android:layout_marginTop="40dp"
+                android:padding="24dp"
+                android:background="@drawable/login_card_bg"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content">
+
+                <!-- TÍTULO DEL FORM -->
+                <TextView
+                    android:text="Iniciar Sesión"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="#FFFFFF"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <!-- Usuario -->
+                <EditText
+                    android:id="@+id/inputUsername"
+                    android:hint="Nombre de usuario"
+                    android:layout_marginTop="18dp"
+                    android:padding="12dp"
+                    android:background="@drawable/input_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <!-- Contraseña -->
+                <EditText
+                    android:id="@+id/inputPassword"
+                    android:hint="Contraseña"
+                    android:inputType="textPassword"
+                    android:padding="12dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/input_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <!-- Botón -->
+                <Button
+                    android:id="@+id/btnLogin"
+                    android:text="Iniciar sesión"
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="#8e0000"
+                    android:textColor="#FFFFFF"
+                    android:padding="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <!-- 👉 NUEVO: link para ir a registro -->
+                <TextView
+                    android:id="@+id/tvIrARegistro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="¿No tienes cuenta? Regístrate aquí"
+                    android:textColor="#FFFFFF"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:layout_marginTop="16dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
