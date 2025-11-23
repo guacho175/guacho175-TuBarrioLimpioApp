@@ -95,6 +95,8 @@ dependencies {
     implementation("com.google.android.material:material:1.9.0")
     implementation ("com.google.android.gms:play-services-maps:18.2.0")
     implementation ("com.airbnb.android:lottie:6.4.0")
+    implementation ("com.google.android.material:material:1.12.0")
+
 
 
 

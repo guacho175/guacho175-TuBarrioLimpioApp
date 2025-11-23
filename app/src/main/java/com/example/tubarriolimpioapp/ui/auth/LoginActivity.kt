@@ -4,18 +4,20 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tubarriolimpioapp.R
-import com.example.tubarriolimpioapp.models.LoginResponse
-import com.example.tubarriolimpioapp.network.ApiClient
-import com.example.tubarriolimpioapp.network.ApiService
-import com.example.tubarriolimpioapp.ui.home.HomeActivity
+import com.example.tubarriolimpioapp.data.model.LoginResponse
+import com.example.tubarriolimpioapp.data.network.ApiClient
+import com.example.tubarriolimpioapp.data.network.ApiService
+import com.example.tubarriolimpioapp.ui.home.main.HomeActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
+import java.io.IOException
 
 class LoginActivity : AppCompatActivity() {
 
@@ -26,6 +28,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         api = ApiClient.retrofit.create(ApiService::class.java)
+
         val tvIrARegistro: TextView = findViewById(R.id.tvIrARegistro)
         tvIrARegistro.setOnClickListener {
             val intent = Intent(this, RegistrarUsuarioActivity::class.java)
@@ -64,14 +67,37 @@ class LoginActivity : AppCompatActivity() {
                 prefs.edit().putString("token", response.access).apply()
 
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(this@LoginActivity, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@LoginActivity,
+                        "Inicio de sesión exitoso",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
                     finish()
                 }
 
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(this@LoginActivity, "Error: ${e.message}", Toast.LENGTH_LONG).show()
+                    val userMessage = when (e) {
+                        is HttpException -> {
+                            when (e.code()) {
+                                400, 401 -> "Usuario o contraseña incorrectos"
+                                else -> "Ocurrió un error en el servidor (${e.code()}). Intenta nuevamente."
+                            }
+                        }
+                        is IOException -> {
+                            "Revisa tu conexión a internet"
+                        }
+                        else -> {
+                            "Ocurrió un error inesperado. Intenta nuevamente."
+                        }
+                    }
+
+                    Toast.makeText(
+                        this@LoginActivity,
+                        userMessage,
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         }

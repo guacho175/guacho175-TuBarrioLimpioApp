@@ -1,4 +1,4 @@
-package com.example.tubarriolimpioapp.ui.home
+package com.example.tubarriolimpioapp.ui.home.denuncias
 
 import android.os.Bundle
 import android.widget.ImageView

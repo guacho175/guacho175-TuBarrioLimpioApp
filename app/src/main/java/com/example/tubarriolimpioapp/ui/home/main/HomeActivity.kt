@@ -1,4 +1,4 @@
-package com.example.tubarriolimpioapp.ui.home
+package com.example.tubarriolimpioapp.ui.home.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tubarriolimpioapp.R
+import com.example.tubarriolimpioapp.ui.home.denuncias.HomeDenunciasLoader
+import com.example.tubarriolimpioapp.ui.home.notificaciones.HomeNotificacionesLoader
+import com.example.tubarriolimpioapp.ui.home.perfil.HomePerfilLoader
 import com.example.tubarriolimpioapp.ui.ingresar_denuncia.IngresarDenunciaActivity
 import com.example.tubarriolimpioapp.utils.ToolbarUtils   // 👈 IMPORTANTE
 

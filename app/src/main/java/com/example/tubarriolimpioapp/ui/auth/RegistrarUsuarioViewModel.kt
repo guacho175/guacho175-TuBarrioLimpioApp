@@ -2,7 +2,7 @@ package com.example.tubarriolimpioapp.ui.auth
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tubarriolimpioapp.network.RegistroUsuarioRepository
+import com.example.tubarriolimpioapp.data.repository.RegistroUsuarioRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update

@@ -1,4 +1,4 @@
-package com.example.tubarriolimpioapp.ui.home
+package com.example.tubarriolimpioapp.ui.home.denuncias
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

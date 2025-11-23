@@ -1,7 +1,9 @@
-package com.example.tubarriolimpioapp.network
+package com.example.tubarriolimpioapp.data.repository
 
-import com.example.tubarriolimpioapp.models.RegistroRequest
-import com.example.tubarriolimpioapp.models.RegistroResponse
+import com.example.tubarriolimpioapp.data.model.RegistroRequest
+import com.example.tubarriolimpioapp.data.model.RegistroResponse
+import com.example.tubarriolimpioapp.data.network.ApiClient
+import com.example.tubarriolimpioapp.data.network.ApiService
 
 class RegistroUsuarioRepository(
     private val api: ApiService = ApiClient.apiService

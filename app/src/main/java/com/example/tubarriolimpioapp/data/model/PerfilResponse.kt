@@ -1,4 +1,4 @@
-package com.example.tubarriolimpioapp.models
+package com.example.tubarriolimpioapp.data.model
 
 data class PerfilResponse(
     val id: Int,

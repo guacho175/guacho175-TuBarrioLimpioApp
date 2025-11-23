@@ -1,4 +1,4 @@
-package com.example.tubarriolimpioapp.ui.home
+package com.example.tubarriolimpioapp.ui.home.denuncias
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.tubarriolimpioapp.R
-import com.example.tubarriolimpioapp.models.DenunciaResponse
+import com.example.tubarriolimpioapp.data.model.DenunciaResponse
 import com.example.tubarriolimpioapp.util.DateFormatter
 
 import java.time.OffsetDateTime

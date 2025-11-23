@@ -3,7 +3,7 @@ package com.example.tubarriolimpioapp.ui.ingresar_denuncia
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.tubarriolimpioapp.network.ApiClient
+import com.example.tubarriolimpioapp.data.network.ApiClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob

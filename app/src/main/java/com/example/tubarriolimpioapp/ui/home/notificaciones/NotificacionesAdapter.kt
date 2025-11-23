@@ -1,4 +1,4 @@
-package com.example.tubarriolimpioapp.ui.home
+package com.example.tubarriolimpioapp.ui.home.notificaciones
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +7,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tubarriolimpioapp.R
-import com.example.tubarriolimpioapp.models.NotificacionResponse
+import com.example.tubarriolimpioapp.data.model.NotificacionResponse
 import com.example.tubarriolimpioapp.util.DateFormatter
 
 
