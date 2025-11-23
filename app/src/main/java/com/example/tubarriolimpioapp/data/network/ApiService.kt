@@ -1,6 +1,11 @@
-package com.example.tubarriolimpioapp.network
+package com.example.tubarriolimpioapp.data.network
 
-import com.example.tubarriolimpioapp.models.*
+import com.example.tubarriolimpioapp.data.model.DenunciaResponse
+import com.example.tubarriolimpioapp.data.model.LoginResponse
+import com.example.tubarriolimpioapp.data.model.NotificacionResponse
+import com.example.tubarriolimpioapp.data.model.PerfilResponse
+import com.example.tubarriolimpioapp.data.model.RegistroRequest
+import com.example.tubarriolimpioapp.data.model.RegistroResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.*

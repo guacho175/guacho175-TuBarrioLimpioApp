@@ -1,4 +1,4 @@
-package com.example.tubarriolimpioapp.network
+package com.example.tubarriolimpioapp.data.network
 
 object ApiConfig {
     const val BASE_URL = "https://tubarriolimpio.space/api/"

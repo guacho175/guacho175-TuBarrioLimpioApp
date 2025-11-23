@@ -1,12 +1,15 @@
-package com.example.tubarriolimpioapp.ui.home
+package com.example.tubarriolimpioapp.ui.home.notificaciones
 
 import android.content.Intent
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import com.example.tubarriolimpioapp.models.DenunciaResponse
-import com.example.tubarriolimpioapp.models.NotificacionResponse
-import com.example.tubarriolimpioapp.network.ApiClient
+import com.example.tubarriolimpioapp.data.model.DenunciaResponse
+import com.example.tubarriolimpioapp.data.model.NotificacionResponse
+import com.example.tubarriolimpioapp.data.network.ApiClient
+import com.example.tubarriolimpioapp.ui.home.denuncias.DetalleDenunciaActivity
+import com.example.tubarriolimpioapp.ui.home.denuncias.HomeDenunciasLoader
+import com.example.tubarriolimpioapp.ui.home.main.HomeActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

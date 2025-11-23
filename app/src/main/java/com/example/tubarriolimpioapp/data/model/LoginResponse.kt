@@ -1,4 +1,4 @@
-package com.example.tubarriolimpioapp.models
+package com.example.tubarriolimpioapp.data.model
 
 data class LoginResponse(
     val access: String,

@@ -1,9 +1,10 @@
-package com.example.tubarriolimpioapp.ui.home
+package com.example.tubarriolimpioapp.ui.home.perfil
 
 import android.util.Log
 import kotlinx.coroutines.*
-import com.example.tubarriolimpioapp.network.ApiClient
-import com.example.tubarriolimpioapp.models.PerfilResponse
+import com.example.tubarriolimpioapp.data.network.ApiClient
+import com.example.tubarriolimpioapp.data.model.PerfilResponse
+import com.example.tubarriolimpioapp.ui.home.main.HomeActivity
 
 object HomePerfilLoader {
 

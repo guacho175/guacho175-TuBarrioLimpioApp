@@ -1,4 +1,4 @@
-package com.example.tubarriolimpioapp.network
+package com.example.tubarriolimpioapp.data.network
 
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
