@@ -3,13 +3,17 @@ package com.example.tubarriolimpioapp.ui.home.notificaciones
 import android.content.Intent
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
+import com.example.tubarriolimpioapp.R
 import com.example.tubarriolimpioapp.data.model.DenunciaResponse
 import com.example.tubarriolimpioapp.data.model.NotificacionResponse
 import com.example.tubarriolimpioapp.data.network.ApiClient
+import com.example.tubarriolimpioapp.ui.home.HomeActivity
 import com.example.tubarriolimpioapp.ui.home.denuncias.DetalleDenunciaActivity
 import com.example.tubarriolimpioapp.ui.home.denuncias.HomeDenunciasLoader
-import com.example.tubarriolimpioapp.ui.home.main.HomeActivity
+import com.google.android.material.card.MaterialCardView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,47 +21,59 @@ import kotlinx.coroutines.withContext
 
 object HomeNotificacionesLoader {
 
+    private const val TAG = "HOME_NOTIFICACIONES"
+
     fun cargarNotificaciones(activity: HomeActivity, token: String) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                // 1. Obtenemos la lista de notificaciones y filtramos solo las NO leídas
                 val lista: List<NotificacionResponse> =
                     ApiClient.apiService.obtenerNotificaciones("Bearer $token")
                         .filter { !it.leida }
 
                 withContext(Dispatchers.Main) {
 
+                    val cardNotificaciones =
+                        activity.findViewById<MaterialCardView>(R.id.cardNotificaciones)
+                    val txtTitulo =
+                        activity.findViewById<TextView>(R.id.txtTituloNotificaciones)
+                    val txtBadge =
+                        activity.findViewById<TextView>(R.id.txtNotificacionesBadge)
+                    val rv =
+                        activity.findViewById<RecyclerView>(R.id.rvNotificaciones)
+
+                    cardNotificaciones.visibility = View.VISIBLE
+
                     if (lista.isEmpty()) {
-                        // 👉 No hay notificaciones sin leer: ocultamos título + lista
-                        activity.txtTituloNotificaciones.visibility = View.GONE
-                        activity.rvNotificaciones.visibility = View.GONE
-
+                        txtTitulo.text = "Sin notificaciones nuevas"
+                        txtBadge.visibility = View.GONE
+                        rv.visibility = View.GONE
+                        rv.adapter = null
                     } else {
-                        // 👉 Hay notificaciones sin leer: mostramos título + lista
-                        activity.txtTituloNotificaciones.visibility = View.VISIBLE
-                        activity.rvNotificaciones.visibility = View.VISIBLE
+                        txtTitulo.text = "Notificaciones recientes"
+                        txtBadge.visibility = View.VISIBLE
+                        txtBadge.text = lista.size.toString()
 
-                        // 2. Configuramos el adapter
-                        activity.rvNotificaciones.adapter = NotificacionesAdapter(
+                        rv.adapter = NotificacionesAdapter(
                             lista,
                             onVerClick = { notificacion ->
-                                // Aquí solo delegamos: abrir detalle con todos los datos
                                 abrirDenunciaDesdeNotificacion(activity, token, notificacion)
                             },
                             onMarcarLeidaClick = { notificacion ->
                                 marcarNotificacionLeida(activity, token, notificacion.id)
                             }
                         )
+
+                        // El acordeón parte cerrado; HomeActivity lo controla
+                        rv.visibility = View.GONE
                     }
                 }
 
             } catch (e: Exception) {
-                Log.e("HOME_ERROR", "Error cargando notificaciones", e)
+                Log.e(TAG, "Error cargando notificaciones", e)
             }
         }
     }
 
-    // 🔹 NUEVO: función que busca la denuncia por id y abre el detalle con foto
     private fun abrirDenunciaDesdeNotificacion(
         activity: HomeActivity,
         token: String,
@@ -65,11 +81,9 @@ object HomeNotificacionesLoader {
     ) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                // Pedimos las denuncias del usuario
                 val denuncias: List<DenunciaResponse> =
                     ApiClient.apiService.obtenerMisDenuncias("Bearer $token")
 
-                // Buscamos la denuncia por id
                 val denuncia = denuncias.find { it.id == notificacion.denuncia }
 
                 withContext(Dispatchers.Main) {
@@ -95,7 +109,7 @@ object HomeNotificacionesLoader {
                 }
 
             } catch (e: Exception) {
-                Log.e("HOME_ERROR", "Error obteniendo denuncia desde notificación", e)
+                Log.e(TAG, "Error obteniendo denuncia desde notificación", e)
                 withContext(Dispatchers.Main) {
                     Toast.makeText(
                         activity,
@@ -110,7 +124,6 @@ object HomeNotificacionesLoader {
     fun marcarNotificacionLeida(activity: HomeActivity, token: String, idNotificacion: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                // 1. Llamada a la API (PATCH)
                 ApiClient.apiService.marcarNotificacionLeida(
                     "Bearer $token",
                     idNotificacion,
@@ -119,12 +132,11 @@ object HomeNotificacionesLoader {
 
                 withContext(Dispatchers.Main) {
                     Toast.makeText(activity, "Marcada como leída", Toast.LENGTH_SHORT).show()
-                    // 2. Recargar notificaciones para refrescar la UI
                     cargarNotificaciones(activity, token)
                 }
 
             } catch (e: Exception) {
-                Log.e("HOME_ERROR", "Error al marcar como leída", e)
+                Log.e(TAG, "Error al marcar como leída", e)
                 withContext(Dispatchers.Main) {
                     Toast.makeText(activity, "Error al actualizar", Toast.LENGTH_SHORT).show()
                 }

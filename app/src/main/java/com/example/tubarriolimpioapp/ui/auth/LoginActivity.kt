@@ -11,7 +11,7 @@ import com.example.tubarriolimpioapp.R
 import com.example.tubarriolimpioapp.data.model.LoginResponse
 import com.example.tubarriolimpioapp.data.network.ApiClient
 import com.example.tubarriolimpioapp.data.network.ApiService
-import com.example.tubarriolimpioapp.ui.home.main.HomeActivity
+import com.example.tubarriolimpioapp.ui.home.HomeActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

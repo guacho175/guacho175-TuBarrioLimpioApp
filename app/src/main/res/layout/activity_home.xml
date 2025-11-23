@@ -76,25 +76,86 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- SECCIÓN NOTIFICACIONES -->
-            <TextView
-                android:id="@+id/txtTituloNotificaciones"
+            <!-- SECCIÓN NOTIFICACIONES COMO ACORDEÓN -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardNotificaciones"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Notificaciones recientes"
-                android:textStyle="bold"
-                android:background="#B41C1C"
-                android:textColor="#FFFFFF"
-                android:padding="10dp"
-                android:textSize="18sp" />
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvNotificaciones"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
-                android:overScrollMode="never"
-                android:layout_marginBottom="22dp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Header clicable -->
+                    <LinearLayout
+                        android:id="@+id/layoutNotificacionesHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="10dp"
+                        android:gravity="center_vertical"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
+
+                        <ImageView
+                            android:id="@+id/imgNotificaciones"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_notifications"
+                            android:tint="@color/dark_red" />
+
+                        <TextView
+                            android:id="@+id/txtTituloNotificaciones"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_weight="1"
+                            android:text="Notificaciones recientes"
+                            android:textStyle="bold"
+                            android:textColor="@color/dark_red"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/txtNotificacionesBadge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="2dp"
+                            android:background="@drawable/bg_badge_notificaciones"
+                            android:text="3"
+                            android:textColor="@android:color/white"
+                            android:textSize="11sp"
+                            android:visibility="gone" />
+
+                        <ImageView
+                            android:id="@+id/imgExpandNotificaciones"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginStart="8dp"
+                            android:src="@drawable/ic_expand_more"
+                            android:tint="@color/dark_red" />
+                    </LinearLayout>
+
+                    <!-- Lista en acordeón -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvNotificaciones"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        android:overScrollMode="never"
+                        android:paddingHorizontal="4dp"
+                        android:paddingBottom="8dp"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
 
             <!-- SECCIÓN MIS DENUNCIAS -->
             <TextView
