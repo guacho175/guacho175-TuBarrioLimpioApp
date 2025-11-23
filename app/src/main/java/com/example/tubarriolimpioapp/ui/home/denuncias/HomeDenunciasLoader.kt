@@ -3,9 +3,11 @@ package com.example.tubarriolimpioapp.ui.home.denuncias
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
+import com.example.tubarriolimpioapp.R
 import com.example.tubarriolimpioapp.data.model.DenunciaResponse
 import com.example.tubarriolimpioapp.data.network.ApiClient
-import com.example.tubarriolimpioapp.ui.home.main.HomeActivity
+import com.example.tubarriolimpioapp.ui.home.HomeActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,28 +25,39 @@ object HomeDenunciasLoader {
 
                 Log.d(TAG, "Denuncias recibidas desde API: ${denuncias.size}")
 
-                // Ordenar de la más nueva a la más antigua (id descendente)
                 val denunciasOrdenadas = denuncias.sortedByDescending { it.id }
 
                 withContext(Dispatchers.Main) {
+
+                    val rvMisDenuncias =
+                        activity.findViewById<RecyclerView>(R.id.rvMisDenuncias)
+
                     if (denunciasOrdenadas.isNotEmpty()) {
-                        activity.rvMisDenuncias.adapter = DenunciasAdapter(
+
+                        rvMisDenuncias.adapter = DenunciasAdapter(
                             denunciasOrdenadas
                         ) { idDenuncia ->
 
                             val denuncia = denunciasOrdenadas.find { it.id == idDenuncia }
 
                             if (denuncia != null) {
-                                val intent = Intent(activity, DetalleDenunciaActivity::class.java).apply {
-                                    putExtra("idDenuncia", denuncia.id)
-                                    putExtra("descripcion", denuncia.descripcion)
-                                    putExtra("direccion", denuncia.direccion_textual)
-                                    putExtra("estado", denuncia.estado_display ?: denuncia.estado)
-                                    putExtra("fecha", denuncia.fecha_creacion)
-                                    putExtra("imagen", buildImageUrl(denuncia.imagen))
-                                    putExtra("latitud", denuncia.latitud)
-                                    putExtra("longitud", denuncia.longitud)
-                                }
+                                val intent =
+                                    Intent(activity, DetalleDenunciaActivity::class.java).apply {
+                                        putExtra("idDenuncia", denuncia.id)
+                                        putExtra("descripcion", denuncia.descripcion)
+                                        putExtra("direccion", denuncia.direccion_textual)
+                                        putExtra(
+                                            "estado",
+                                            denuncia.estado_display ?: denuncia.estado
+                                        )
+                                        putExtra("fecha", denuncia.fecha_creacion)
+                                        putExtra(
+                                            "imagen",
+                                            buildImageUrl(denuncia.imagen)
+                                        )
+                                        putExtra("latitud", denuncia.latitud)
+                                        putExtra("longitud", denuncia.longitud)
+                                    }
                                 activity.startActivity(intent)
                             }
                         }

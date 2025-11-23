@@ -57,7 +57,7 @@
         <!-- HomeActivity: pantalla principal de la app para usuarios logueados
              (listado de denuncias, navegación principal, etc.). -->
         <activity
-            android:name=".ui.home.main.HomeActivity"
+            android:name=".ui.home.HomeActivity"
             android:exported="false" />
 
         <!-- IngresarDenunciaActivity: formulario para crear/enviar una nueva denuncia. -->
