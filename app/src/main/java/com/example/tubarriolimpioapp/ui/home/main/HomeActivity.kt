@@ -5,10 +5,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
 import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,18 +20,12 @@ import com.google.android.material.card.MaterialCardView
 
 class HomeActivity : AppCompatActivity() {
 
+    // Variables mantenidas
     lateinit var txtBienvenida: TextView
-    lateinit var txtTituloNotificaciones: TextView
     lateinit var rvNotificaciones: RecyclerView
     lateinit var rvMisDenuncias: RecyclerView
     lateinit var btnIngresarDenuncia: Button
-
-    // Nuevos para el acordeón
-    lateinit var cardNotificaciones: MaterialCardView
-    lateinit var layoutNotificacionesHeader: LinearLayout
-    lateinit var txtNotificacionesBadge: TextView
-    lateinit var imgExpandNotificaciones: ImageView
-
+    lateinit var cardNotificaciones: MaterialCardView // Se mantiene para control de visibilidad
     lateinit var token: String
 
     // Estado del acordeón
@@ -48,16 +40,12 @@ class HomeActivity : AppCompatActivity() {
 
         // UI
         txtBienvenida = findViewById(R.id.txtBienvenida)
-        txtTituloNotificaciones = findViewById(R.id.txtTituloNotificaciones)
         rvNotificaciones = findViewById(R.id.rvNotificaciones)
         rvMisDenuncias = findViewById(R.id.rvMisDenuncias)
         btnIngresarDenuncia = findViewById(R.id.btnIngresarDenuncia)
 
-        // Vistas nuevas del acordeón
+        // Vistas para el acordeón (Solo se mantiene cardNotificaciones y rvNotificaciones)
         cardNotificaciones = findViewById(R.id.cardNotificaciones)
-        layoutNotificacionesHeader = findViewById(R.id.layoutNotificacionesHeader)
-        txtNotificacionesBadge = findViewById(R.id.txtNotificacionesBadge)
-        imgExpandNotificaciones = findViewById(R.id.imgExpandNotificaciones)
 
         btnIngresarDenuncia.setOnClickListener {
             startActivity(Intent(this, IngresarDenunciaActivity::class.java))
@@ -72,30 +60,24 @@ class HomeActivity : AppCompatActivity() {
             override fun canScrollVertically(): Boolean = false
         }
 
-        // Token: igual que tenías antes
+        // Token
         token = getSharedPreferences("auth", MODE_PRIVATE)
             .getString("token", null) ?: return
 
-        // 1) Perfil
+        // Carga de datos
         HomePerfilLoader.cargarPerfil(this, token)
-
-        // 2) Notificaciones
         HomeNotificacionesLoader.cargarNotificaciones(this, token)
-
-        // 3) Mis denuncias
         HomeDenunciasLoader.cargarMisDenuncias(this, token)
 
-        // Acordeón: header y flecha abren/cierran
-        layoutNotificacionesHeader.setOnClickListener {
-            toggleAcordeonNotificaciones()
-        }
-        imgExpandNotificaciones.setOnClickListener {
-            toggleAcordeonNotificaciones()
-        }
+        // **Listeners de encabezado eliminados, la funcionalidad se centraliza en el Toolbar.**
     }
 
     override fun onResume() {
         super.onResume()
+        // Recargar datos al volver a la actividad
+        token = getSharedPreferences("auth", MODE_PRIVATE)
+            .getString("token", null) ?: return
+
         HomeDenunciasLoader.cargarMisDenuncias(this, token)
         HomeNotificacionesLoader.cargarNotificaciones(this, token)
     }
@@ -117,29 +99,24 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    // ---------- Lógica del acordeón ----------
+    // ---------- Lógica del acordeón simplificada ----------
 
     private fun toggleAcordeonNotificaciones() {
-        // Si la lista todavía no tiene adapter, no hacemos nada
+        // Aseguramos que haya datos antes de expandir/contraer
         if (rvNotificaciones.adapter == null) {
-            // Puede no haber notificaciones nuevas, solo mostramos el título
             return
         }
 
         acordeonAbierto = !acordeonAbierto
 
         if (acordeonAbierto) {
+            // Muestra el RecyclerView al presionar el ícono
             rvNotificaciones.visibility = View.VISIBLE
-            imgExpandNotificaciones.animate()
-                .rotation(180f)
-                .setDuration(150)
-                .start()
         } else {
+            // Oculta el RecyclerView
             rvNotificaciones.visibility = View.GONE
-            imgExpandNotificaciones.animate()
-                .rotation(0f)
-                .setDuration(150)
-                .start()
         }
+
+        // **Lógica de animación de flecha eliminada**
     }
 }
