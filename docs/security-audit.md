@@ -90,6 +90,12 @@ Se creó un bundle local completo de respaldo y se reescribieron todos los commi
 
 La publicación requiere reemplazar la rama remota mediante un push forzado. Los clones antiguos deben descartarse porque conservan los objetos Git originales. Agregar `.env` o el manifiesto a `.gitignore` por sí solo no habría borrado el contenido de commits existentes.
 
+### Limitación de la purga en GitHub
+
+La rama pública y los clones nuevos ya no contienen la clave. Sin embargo, GitHub todavía permite consultar el commit original mediante su SHA exacto aunque no pertenezca a ninguna rama, etiqueta o fork conocido. La documentación oficial indica que los objetos y vistas en caché solo pueden purgarse por completo mediante GitHub Support.
+
+Queda pendiente solicitar a GitHub Support la recolección de basura y eliminación de vistas en caché. La solicitud no debe incluir el valor de la clave; basta con identificar el repositorio, el primer commit afectado, confirmar que no existen pull requests afectados y explicar que la credencial no puede rotarse porque el proyecto propietario ya no está accesible.
+
 ## Recomendación de publicación
 
 Opción aplicada: conservar la URL actual y reescribir los seis commits originales. La ausencia de forks, etiquetas, releases y actividad pública reduce el costo de invalidar el historial. El push forzado fue autorizado y debe verificarse con un clon nuevo y un escaneo completo.
@@ -102,6 +108,7 @@ Alternativa conservadora: cambiar el repositorio actual a privado y crear uno p�
 - [x] Estrategia confirmada: reescritura del repositorio actual.
 - [x] Gitleaks sin hallazgos en estado actual e historial local publicable.
 - [x] Historial público reemplazado y verificado desde un clon nuevo.
+- [ ] Objetos sin referencias y vistas en caché purgados por GitHub Support.
 - [ ] Restricciones de la nueva clave verificadas en Google Cloud.
 - [ ] Migración del token a almacenamiento respaldado por Android Keystore evaluada.
 - [x] Tests, lint y `assembleDebug` ejecutados localmente.
