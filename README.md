@@ -2,16 +2,24 @@
 
 Aplicación Android nativa desarrollada como proyecto académico para registrar y consultar denuncias ciudadanas de microbasurales. La app consume una API REST externa y permite adjuntar evidencia fotográfica y ubicación.
 
-> **Estado:** proyecto descontinuado, conservado como pieza de portafolio y referencia técnica. El backend original ya no está disponible y la aplicación no se distribuye como producto operativo.
+> **Estado:** proyecto académico conservado como pieza de portafolio. Existe una versión demostrativa conectada al backend alojado en PythonAnywhere, sin garantía de disponibilidad ni soporte de producción.
+
+## Descargar APK
+
+[Descargar Tu Barrio Limpio 1.0.0 para Android](https://github.com/guacho175/guacho175-TuBarrioLimpioApp/releases/download/v1.0.0-portfolio/tu-barrio-limpio-v1.0.0.apk)
+
+La versión publicada está firmada, requiere Android 7.0 o posterior e incluye la configuración necesaria para usar el backend demostrativo y Google Maps. Android puede solicitar autorización para instalar aplicaciones desde el navegador o gestor de archivos.
+
+Consulta también [la publicación y sus archivos de verificación](https://github.com/guacho175/guacho175-TuBarrioLimpioApp/releases/tag/v1.0.0-portfolio). Es una demostración académica: no ingreses información personal o sensible y ten presente que el servicio puede dejar de estar disponible.
 
 ## Alcance del repositorio
 
 Este repositorio contiene únicamente el cliente Android. Su objetivo actual es documentar la solución implementada, su arquitectura y las mejoras de seguridad aplicadas después del desarrollo académico.
 
-- El código compila con valores de configuración no funcionales y seguros.
-- Para probar los flujos conectados se necesita una API compatible propia.
-- El mapa requiere una clave nueva de Google Maps restringida a la aplicación.
-- No se ofrece soporte, servicio alojado ni APK de producción.
+- El repositorio compila por defecto con valores de configuración ficticios y seguros.
+- La versión publicada en GitHub Releases utiliza el backend demostrativo disponible.
+- Los builds propios requieren una API compatible y una clave de Google Maps restringida.
+- Se distribuye un APK académico firmado; no es una aplicación ni un servicio de producción.
 
 ## Funcionalidades implementadas
 
@@ -86,6 +94,7 @@ En Windows:
 .\gradlew.bat test
 .\gradlew.bat lint
 .\gradlew.bat assembleDebug
+.\gradlew.bat assembleRelease
 ```
 
 En macOS o Linux:
@@ -96,7 +105,7 @@ En macOS o Linux:
 ./gradlew assembleDebug
 ```
 
-El APK de depuración se genera bajo `app/build/outputs/apk/debug/`. Las pruebas instrumentadas requieren un dispositivo o emulador:
+El APK de depuración se genera bajo `app/build/outputs/apk/debug/` y el firmado bajo `app/build/outputs/apk/release/` cuando existe la configuración de firma descrita anteriormente. Las pruebas instrumentadas requieren un dispositivo o emulador:
 
 ```powershell
 .\gradlew.bat connectedAndroidTest

@@ -7,7 +7,7 @@ Alcance: estado actual, historial Git completo disponible localmente, dependenci
 
 El repositorio remoto es público. Se encontró una clave de Google Maps versionada desde el commit inicial y presente en los seis commits originales. La clave fue retirada del código, el historial completo fue reescrito y la rama pública fue reemplazada. Un clon nuevo del remoto obtuvo 0 hallazgos con Gitleaks.
 
-La clave debe considerarse comprometida y rotarse antes de reescribir el historial. Dado que el repositorio solo tiene una rama, seis commits, cero forks, cero estrellas, cero etiquetas y cero releases, la recomendación actual es conservar el repositorio y sanear su historial. Si se prefiere mantener el historial original como archivo privado, la alternativa es privatizarlo y publicar una copia nueva con historial limpio.
+La clave histórica debe seguir considerándose comprometida. El repositorio se conservó y su historial fue saneado. Para la versión académica se creó una clave distinta en un proyecto accesible, sin reutilizar el valor expuesto.
 
 ## Stack y estructura
 
@@ -57,9 +57,9 @@ Se retiró `READ_EXTERNAL_STORAGE`, innecesario con el selector de contenido usa
 
 Se eliminó el archivo accidental `tatus`, se amplió `.gitignore` según el stack y se retiró una traza directa de excepción. Persisten componentes de plantilla Compose y cobertura de pruebas mínima.
 
-### Informativo — API histórica no resoluble
+### Informativo — dominio histórico no resoluble
 
-El dominio histórico configurado por la aplicación devolvió `SERVFAIL` en una consulta DNS pública realizada el 2026-07-24 y no pudo resolverse desde el entorno de auditoría. Esto indica que la API no era accesible por ese dominio durante la comprobación, pero no confirma que la infraestructura, base de datos o copias de seguridad hayan sido eliminadas. La baja debe verificarse directamente con el proveedor donde se alojó el backend.
+El dominio personalizado histórico devolvió `SERVFAIL` en una consulta DNS pública realizada el 2026-07-24. Posteriormente se localizó la instancia activa del backend en PythonAnywhere y se verificó la compatibilidad de los endpoints consumidos por la aplicación. La versión académica utiliza directamente su URL HTTPS.
 
 ## Validación del saneamiento local
 
@@ -78,11 +78,19 @@ Después de corregir la herencia del tema específico de Android 10, se ejecutar
 
 Las pruebas existentes son únicamente las de plantilla y no validan los flujos funcionales de la aplicación. Las advertencias de lint deben revisarse como deuda técnica, aunque no bloquean el build actual.
 
-## Estado de la clave comprometida
+## Estado de las claves
 
-La clave no aparece en ninguno de los proyectos accesibles desde la cuenta disponible durante el saneamiento. No fue posible recuperar el proyecto propietario para revocarla o revisar su uso. La aplicación y su backend están descontinuados y no se creó una clave de reemplazo.
+La clave histórica no aparece en ninguno de los proyectos accesibles desde la cuenta disponible durante el saneamiento. No fue posible recuperar el proyecto propietario para revocarla o revisar su uso.
 
 La cadena debe seguir tratándose como comprometida. Si el proyecto de Google Cloud vuelve a estar accesible, se debe eliminar la clave antigua; no debe reutilizarse aunque el historial Git ya esté limpio.
+
+El 2026-07-24 se creó una clave nueva para la versión académica. Su valor solo se mantiene en la configuración local ignorada por Git. En Google Cloud quedó restringida de la siguiente manera:
+
+- API permitida: `Maps SDK for Android`.
+- Paquete permitido: `com.example.tubarriolimpioapp`.
+- Certificado permitido: la huella SHA-1 del almacén de firma release.
+
+La clave nueva fue inyectada al compilar el APK firmado; no se incorporó al árbol ni al historial Git.
 
 ## Limpieza del historial
 
@@ -109,9 +117,9 @@ Alternativa conservadora: cambiar el repositorio actual a privado y crear uno p�
 - [x] Gitleaks sin hallazgos en estado actual e historial local publicable.
 - [x] Historial público reemplazado y verificado desde un clon nuevo.
 - [ ] Objetos sin referencias y vistas en caché purgados por GitHub Support.
-- [ ] Restricciones de la nueva clave verificadas en Google Cloud.
+- [x] Restricciones de la nueva clave verificadas en Google Cloud.
 - [ ] Migración del token a almacenamiento respaldado por Android Keystore evaluada.
-- [x] Tests, lint y `assembleDebug` ejecutados localmente.
+- [x] Tests, lint, `assembleDebug` y `assembleRelease` ejecutados localmente.
 - [x] `.env` y archivos de firma ausentes del índice.
 - [x] APK, logs, rutas locales y datos personales ausentes.
 - [ ] Derechos de publicación de código y recursos confirmados.
