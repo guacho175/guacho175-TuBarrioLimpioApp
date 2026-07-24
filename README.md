@@ -1,8 +1,17 @@
 # Tu Barrio Limpio App
 
-Aplicación Android nativa para que ciudadanos registren y consulten denuncias de microbasurales. La app consume una API REST externa y permite adjuntar evidencia fotográfica y ubicación.
+Aplicación Android nativa desarrollada como proyecto académico para registrar y consultar denuncias ciudadanas de microbasurales. La app consume una API REST externa y permite adjuntar evidencia fotográfica y ubicación.
 
-> Estado: proyecto académico en desarrollo. El backend no forma parte de este repositorio y algunas pruebas requieren un dispositivo o emulador Android.
+> **Estado:** proyecto descontinuado, conservado como pieza de portafolio y referencia técnica. El backend original ya no está disponible y la aplicación no se distribuye como producto operativo.
+
+## Alcance del repositorio
+
+Este repositorio contiene únicamente el cliente Android. Su objetivo actual es documentar la solución implementada, su arquitectura y las mejoras de seguridad aplicadas después del desarrollo académico.
+
+- El código compila con valores de configuración no funcionales y seguros.
+- Para probar los flujos conectados se necesita una API compatible propia.
+- El mapa requiere una clave nueva de Google Maps restringida a la aplicación.
+- No se ofrece soporte, servicio alojado ni APK de producción.
 
 ## Funcionalidades implementadas
 
@@ -113,7 +122,7 @@ Consulta [SECURITY.md](SECURITY.md) y [el informe de saneamiento](docs/security-
 - Las pruebas existentes cubren únicamente la plantilla base; faltan pruebas funcionales de autenticación, red y formularios.
 - La configuración release no habilita aún minificación u ofuscación.
 
-## Próximas mejoras
+## Posibles mejoras si el proyecto se reactiva
 
 - Migrar el token de sesión a almacenamiento cifrado mediante Android Keystore.
 - Ampliar pruebas unitarias e instrumentadas.
@@ -122,6 +131,6 @@ Consulta [SECURITY.md](SECURITY.md) y [el informe de saneamiento](docs/security-
 
 ## Autoría y licencia
 
-Proyecto mantenido por [guacho175](https://github.com/guacho175).
+Proyecto académico de [guacho175](https://github.com/guacho175), preservado con fines de portafolio.
 
 Este repositorio no incluye actualmente una licencia. Mientras no se agregue una, no se conceden permisos de reutilización, modificación o redistribución.

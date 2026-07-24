@@ -78,49 +78,34 @@ Después de corregir la herencia del tema específico de Android 10, se ejecutar
 
 Las pruebas existentes son únicamente las de plantilla y no validan los flujos funcionales de la aplicación. Las advertencias de lint deben revisarse como deuda técnica, aunque no bloquean el build actual.
 
-## Rotación de la clave comprometida
+## Estado de la clave comprometida
 
-1. En Google Cloud Console, identifica la clave detectada sin copiarla a tickets ni documentos.
-2. Revisa uso, APIs habilitadas y restricciones para detectar actividad no esperada.
-3. Crea una clave nueva con restricción **Android apps** para el `applicationId` y las huellas SHA-1 de los certificados autorizados.
-4. Limita la clave exclusivamente a **Maps SDK for Android**.
-5. Configura la nueva clave localmente como `MAPS_API_KEY` y valida el mapa en debug y release.
-6. Elimina o revoca la clave antigua. No basta con regenerar el APK.
+La clave no aparece en ninguno de los proyectos accesibles desde la cuenta disponible durante el saneamiento. No fue posible recuperar el proyecto propietario para revocarla o revisar su uso. La aplicación y su backend están descontinuados y no se creó una clave de reemplazo.
 
-## Estrategia de limpieza del historial
+La cadena debe seguir tratándose como comprometida. Si el proyecto de Google Cloud vuelve a estar accesible, se debe eliminar la clave antigua; no debe reutilizarse aunque el historial Git ya esté limpio.
 
-No se ejecutó ninguna reescritura. Antes de hacerlo, revoca la clave y coordina con todos los colaboradores.
+## Limpieza del historial
 
-Con una copia de respaldo y `git-filter-repo` instalado, una estrategia posible es reemplazar únicamente el valor comprometido mediante un archivo de expresiones mantenido fuera del repositorio:
+Se creó un bundle local completo de respaldo y se reescribieron todos los commits con `git-filter-repo`, sustituyendo cualquier cadena con formato de clave de Google por un marcador inerte. El historial reescrito fue escaneado con Gitleaks 8.30.1 y obtuvo 0 hallazgos.
 
-```text
-literal:<VALOR_COMPROMETIDO>==>REMOVED_GOOGLE_MAPS_KEY
-```
-
-```bash
-git filter-repo --replace-text /ruta/fuera-del-repo/replacements.txt
-git log --all -- app/src/main/AndroidManifest.xml
-gitleaks git . --redact
-```
-
-Después se deben invalidar clones y forks antiguos, coordinar un push forzado protegido y pedir a colaboradores que vuelvan a clonar. Agregar `.env` o el manifiesto a `.gitignore` no borra el contenido de commits existentes.
+La publicación requiere reemplazar la rama remota mediante un push forzado. Los clones antiguos deben descartarse porque conservan los objetos Git originales. Agregar `.env` o el manifiesto a `.gitignore` por sí solo no habría borrado el contenido de commits existentes.
 
 ## Recomendación de publicación
 
-Opción recomendada para este caso: conservar la URL actual y reescribir los seis commits después de rotar la clave. La ausencia de forks, etiquetas, releases y actividad pública reduce el costo de invalidar el historial. El push forzado debe autorizarse expresamente, ejecutarse una sola vez y verificarse con un clon nuevo y un escaneo completo.
+Opción aplicada: conservar la URL actual y reescribir los seis commits originales. La ausencia de forks, etiquetas, releases y actividad pública reduce el costo de invalidar el historial. El push forzado fue autorizado y debe verificarse con un clon nuevo y un escaneo completo.
 
 Alternativa conservadora: cambiar el repositorio actual a privado y crear uno público nuevo desde el árbol saneado, con un único commit inicial. Esta opción evita un push forzado, pero exige mantener privado o eliminar el repositorio histórico para que la clave no siga accesible.
 
 ## Checklist previo a publicación
 
-- [ ] Clave histórica rotada y revocada.
+- [ ] Clave histórica revocada; no fue posible recuperar el proyecto propietario.
 - [x] Estrategia confirmada: reescritura del repositorio actual.
 - [x] Gitleaks sin hallazgos en estado actual e historial local publicable.
 - [ ] Historial saneado o repositorio público creado con historial nuevo.
 - [ ] Restricciones de la nueva clave verificadas en Google Cloud.
 - [ ] Migración del token a almacenamiento respaldado por Android Keystore evaluada.
 - [x] Tests, lint y `assembleDebug` ejecutados localmente.
-- [ ] `.env` y archivos de firma ausentes del índice.
-- [ ] APK, logs, rutas locales y datos personales ausentes.
+- [x] `.env` y archivos de firma ausentes del índice.
+- [x] APK, logs, rutas locales y datos personales ausentes.
 - [ ] Derechos de publicación de código y recursos confirmados.
 - [ ] Licencia elegida conscientemente si se desea permitir reutilización.
