@@ -25,6 +25,19 @@ require(apiBaseUrl.startsWith("https://") && apiBaseUrl.endsWith("/")) {
 }
 val mapsApiKey = environmentValue("MAPS_API_KEY", "MISSING_MAPS_API_KEY")
 
+val signingPropertiesFile =
+    providers.gradleProperty("RELEASE_SIGNING_PROPERTIES").orNull
+        ?.let(rootProject::file)
+        ?: File(
+            System.getProperty("user.home"),
+            ".android/keystores/tubarriolimpio/signing.properties"
+        )
+val signingProperties = Properties().apply {
+    if (signingPropertiesFile.isFile) {
+        signingPropertiesFile.inputStream().use(::load)
+    }
+}
+
 android {
     namespace = "com.example.tubarriolimpioapp"
     compileSdk = 35
@@ -34,7 +47,7 @@ android {
         minSdk = 24
         targetSdk = 35
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -44,9 +57,21 @@ android {
         manifestPlaceholders["mapsApiKey"] = mapsApiKey
     }
 
+    signingConfigs {
+        if (signingPropertiesFile.isFile) {
+            create("release") {
+                storeFile = file(signingProperties.getProperty("storeFile"))
+                storePassword = signingProperties.getProperty("storePassword")
+                keyAlias = signingProperties.getProperty("keyAlias")
+                keyPassword = signingProperties.getProperty("keyPassword")
+            }
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
+            signingConfig = signingConfigs.findByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"

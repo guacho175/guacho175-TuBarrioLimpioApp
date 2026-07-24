@@ -68,6 +68,16 @@ MAPS_API_KEY=replace_with_restricted_google_maps_key
 
 El archivo `.env` es local y está ignorado por Git. Una clave de Google Maps incluida en una APK puede extraerse, por lo que debe restringirse en Google Cloud por nombre de paquete, huella del certificado de firma y API permitida.
 
+### Firma de la versión release
+
+La configuración de firma se carga fuera del repositorio desde:
+
+```text
+%USERPROFILE%\.android\keystores\tubarriolimpio\signing.properties
+```
+
+El almacén de firma y sus contraseñas no deben copiarse al repositorio. Para conservar la posibilidad de publicar actualizaciones compatibles, guarda una copia segura del almacén y su configuración en un gestor de contraseñas o respaldo cifrado.
+
 ## Desarrollo, pruebas y build
 
 En Windows:

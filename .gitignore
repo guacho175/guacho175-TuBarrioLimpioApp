@@ -4,6 +4,7 @@
 !.env.example
 local.properties
 secrets.properties
+signing.properties
 google-services.json
 
 # Signing keys and certificates
