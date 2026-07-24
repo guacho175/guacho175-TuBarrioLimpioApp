@@ -3,7 +3,6 @@ package com.example.tubarriolimpioapp.utils
 import android.content.Context
 import android.net.Uri
 import java.io.File
-import java.io.FileOutputStream
 import java.io.InputStream
 
 object FileUtils {
@@ -15,8 +14,7 @@ object FileUtils {
                 inputStream?.copyTo(fileOut)
             }
             tempFile
-        } catch (e: Exception) {
-            e.printStackTrace()
+        } catch (_: Exception) {
             null
         }
     }

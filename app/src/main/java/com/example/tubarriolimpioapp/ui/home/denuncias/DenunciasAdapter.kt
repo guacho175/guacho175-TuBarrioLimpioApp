@@ -10,10 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.tubarriolimpioapp.R
 import com.example.tubarriolimpioapp.data.model.DenunciaResponse
+import com.example.tubarriolimpioapp.data.network.ApiConfig
 import com.example.tubarriolimpioapp.util.DateFormatter
-
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
 
 class DenunciasAdapter(
     private val lista: List<DenunciaResponse>,
@@ -72,20 +70,8 @@ class DenunciasAdapter(
         return if (path.startsWith("http")) {
             path
         } else {
-            "https://tubarriolimpio.space$path"
+            "${ApiConfig.BASE_ORIGIN}$path"
         }
     }
 
-    private fun formatFecha(raw: String?): String {
-        if (raw.isNullOrBlank()) return ""
-        return try {
-            // Ejemplo de raw: 2025-11-22T19:32:05.472018-03:00
-            val odt = OffsetDateTime.parse(raw)
-            val formatterSalida = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")
-            odt.format(formatterSalida)      // sin segundos
-        } catch (e: Exception) {
-            // Si algo falla, mostramos el valor original para no romper la app
-            raw
-        }
-    }
 }

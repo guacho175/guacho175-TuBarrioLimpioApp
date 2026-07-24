@@ -1,5 +1,6 @@
 package com.example.tubarriolimpioapp.data.network
 
+import com.example.tubarriolimpioapp.BuildConfig
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -8,13 +9,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
 
-    private val logging = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BODY
-    }
-
-    private val client = OkHttpClient.Builder()
-        .addInterceptor(logging)
-        .build()
+    private val client = OkHttpClient.Builder().apply {
+        if (BuildConfig.DEBUG) {
+            addInterceptor(
+                HttpLoggingInterceptor().apply {
+                    redactHeader("Authorization")
+                    level = HttpLoggingInterceptor.Level.BASIC
+                }
+            )
+        }
+    }.build()
 
     private val gson = GsonBuilder()
         .setLenient()

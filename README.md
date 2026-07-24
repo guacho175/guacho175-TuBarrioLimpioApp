@@ -1,99 +1,127 @@
-##############################
+# Tu Barrio Limpio App
 
-Tu Barrio Limpio App
+Aplicación Android nativa para que ciudadanos registren y consulten denuncias de microbasurales. La app consume una API REST externa y permite adjuntar evidencia fotográfica y ubicación.
 
-##############################
+> Estado: proyecto académico en desarrollo. El backend no forma parte de este repositorio y algunas pruebas requieren un dispositivo o emulador Android.
 
-Aplicación móvil del proyecto académico Microbasurales / Tu Barrio Limpio, enfocada exclusivamente en usuarios ciudadanos. Permite reportar y hacer seguimiento de microbasurales (basurales ilegales) de forma simple, rápida y geolocalizada, conectándose a la API REST del sistema web en Django.
+## Funcionalidades implementadas
 
-##############################
+- Registro e inicio de sesión.
+- Consulta del perfil del usuario.
+- Listado y detalle de denuncias propias.
+- Registro de denuncias con descripción, dirección, coordenadas e imagen.
+- Visualización de denuncias en un mapa.
+- Listado y marcado de notificaciones.
+- Captura de imágenes con cámara o selección desde la galería.
 
-Objetivo de la App
+## Arquitectura y stack
 
-##############################
+El proyecto separa modelos, acceso a red, repositorios y pantallas. Las pantallas XML y actividades Android consumen la API mediante Retrofit; algunas operaciones de registro y denuncia utilizan `ViewModel`.
 
-Facilitar que cualquier vecino pueda:
+- Kotlin y Android SDK (mínimo 24, objetivo 35).
+- Gradle 8.7 con Kotlin DSL.
+- AndroidX, Material Components y layouts XML.
+- Retrofit, OkHttp y Gson.
+- Kotlin Coroutines.
+- Google Maps y Play Services Location.
+- Glide y Lottie.
 
-Registrar una denuncia desde el celular, con ubicación y evidencia fotográfica.
+```text
+app/src/main/
+├── java/com/example/tubarriolimpioapp/
+│   ├── data/          # Modelos, API y repositorios
+│   ├── ui/            # Actividades, loaders, adapters y tema
+│   └── utils/         # Validadores y utilidades
+├── res/               # Layouts, drawables, menús y valores
+└── AndroidManifest.xml
+```
 
-Ver el estado de sus denuncias en el tiempo.
+## Requisitos
 
-Recibir notificaciones cuando la municipalidad actualiza el caso.
+- JDK 17.
+- Android Studio o Android SDK con la plataforma 35.
+- Un emulador o dispositivo con Android 7.0 (API 24) o superior.
+- Acceso a una instancia compatible de la API REST.
+- Una clave de Google Maps SDK for Android restringida al paquete y certificado de firma de la app.
 
-Las funciones internas municipales (fiscalización, asignación de cuadrillas, etc.) se gestionan desde la plataforma web.
+## Configuración local
 
-##############################
+1. Clona el repositorio.
+2. Copia `.env.example` como `.env`.
+3. Reemplaza los valores ficticios:
 
-Funcionalidades (Usuario Ciudadano)
+```env
+API_BASE_URL=https://api.example.com/api/
+MAPS_API_KEY=replace_with_restricted_google_maps_key
+```
 
-##############################
+`API_BASE_URL` debe usar HTTPS y terminar en `/`. Ambas variables son necesarias para utilizar todas las funciones; sin ellas el proyecto compila con valores seguros no funcionales. Gradle también acepta las variables desde el entorno del sistema o propiedades `-P`, con ese orden de prioridad.
 
-Registro e inicio de sesión
+El archivo `.env` es local y está ignorado por Git. Una clave de Google Maps incluida en una APK puede extraerse, por lo que debe restringirse en Google Cloud por nombre de paquete, huella del certificado de firma y API permitida.
 
-Listado de denuncias
+## Desarrollo, pruebas y build
 
-Mapa de denuncias (geolocalización)
+En Windows:
 
-Crear denuncia con:
+```powershell
+.\gradlew.bat test
+.\gradlew.bat lint
+.\gradlew.bat assembleDebug
+```
 
-Fotografía (cámara/galería)
+En macOS o Linux:
 
-Coordenadas GPS automáticas
+```bash
+./gradlew test
+./gradlew lint
+./gradlew assembleDebug
+```
 
-Dirección y descripción
+El APK de depuración se genera bajo `app/build/outputs/apk/debug/`. Las pruebas instrumentadas requieren un dispositivo o emulador:
 
-Detalle completo de denuncia
+```powershell
+.\gradlew.bat connectedAndroidTest
+```
 
-Notificaciones por cambios de estado
+## Endpoints consumidos
 
-Perfil de usuario
+La app espera endpoints relativos a `API_BASE_URL` para:
 
-Interfaz clara y orientada a reportes rápidos
+- `POST usuarios/login/`
+- `POST usuarios/registro/`
+- `GET usuarios/me/`
+- `GET denuncias/mis/`
+- `POST denuncias/`
+- `GET denuncias/notificaciones/`
+- `PATCH denuncias/notificaciones/{id}/`
 
-##############################
+Los contratos detallados están representados por `ApiService.kt` y los modelos en `data/model`.
 
-Tecnologías Utilizadas
+## Seguridad
 
-##############################
+- No se deben versionar claves, tokens, archivos `.env` ni almacenes de firma.
+- El tráfico HTTP en texto claro está deshabilitado.
+- El logging de red solo está activo en debug, usa nivel básico y redacta `Authorization`.
+- Las copias de seguridad de datos de la aplicación están deshabilitadas.
 
-Android nativo (Kotlin)
+Consulta [SECURITY.md](SECURITY.md) y [el informe de saneamiento](docs/security-audit.md) antes de publicar o distribuir el proyecto.
 
-Arquitectura MVVM
+## Limitaciones conocidas
 
-Retrofit + OkHttp (consumo API REST)
+- El token de sesión todavía se almacena en `SharedPreferences` privadas sin cifrado; debe migrarse a almacenamiento respaldado por Android Keystore antes de un uso productivo.
+- La API y su disponibilidad se administran fuera de este repositorio.
+- Las pruebas existentes cubren únicamente la plantilla base; faltan pruebas funcionales de autenticación, red y formularios.
+- La configuración release no habilita aún minificación u ofuscación.
 
-Glide (carga de imágenes)
+## Próximas mejoras
 
-Map Fragment / GPS (ubicación en mapa)
+- Migrar el token de sesión a almacenamiento cifrado mediante Android Keystore.
+- Ampliar pruebas unitarias e instrumentadas.
+- Centralizar el manejo de sesión, errores y ciclo de vida de corrutinas.
+- Habilitar endurecimiento del build release y reglas R8 verificadas.
 
-Material Design + XML Layouts
+## Autoría y licencia
 
-##############################
+Proyecto mantenido por [guacho175](https://github.com/guacho175).
 
-Descarga APK (Versión de Prueba)
-
-##############################
-
-Descarga e instalación directa:
-
-APK:
-
-https://inacapmailcl-my.sharepoint.com/:u:/g/personal/christian_galindez_inacapmail_cl/EY3BqsZofv9OmhCeJVOywOsBTvvUv05z9oEsvFKZi9V6Hg?e=1c1puP
-
-
-APK destinada a evaluación académica y pruebas internas.
-
-##############################
-
-Estado del Proyecto
-
-##############################
-
-Aplicación funcional para usuarios ciudadanos, integrada con el backend Microbasurales.
-Se continúa trabajando en mejoras de:
-
-UI/UX
-
-Validaciones
-
-Rendimiento y estabilidad general
+Este repositorio no incluye actualmente una licencia. Mientras no se agregue una, no se conceden permisos de reutilización, modificación o redistribución.

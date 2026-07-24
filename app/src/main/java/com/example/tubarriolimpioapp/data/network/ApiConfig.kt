@@ -1,5 +1,8 @@
 package com.example.tubarriolimpioapp.data.network
 
+import com.example.tubarriolimpioapp.BuildConfig
+
 object ApiConfig {
-    const val BASE_URL = "https://tubarriolimpio.space/api/"
+    val BASE_URL: String = BuildConfig.API_BASE_URL
+    val BASE_ORIGIN: String = BASE_URL.removeSuffix("/api/").removeSuffix("/")
 }

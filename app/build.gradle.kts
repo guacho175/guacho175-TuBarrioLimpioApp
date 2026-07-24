@@ -1,8 +1,29 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("org.jetbrains.kotlin.kapt")
 }
+
+val localEnvironment = Properties().apply {
+    val environmentFile = rootProject.file(".env")
+    if (environmentFile.isFile) {
+        environmentFile.inputStream().use(::load)
+    }
+}
+
+fun environmentValue(name: String, safeDefault: String): String =
+    providers.environmentVariable(name).orNull
+        ?: providers.gradleProperty(name).orNull
+        ?: localEnvironment.getProperty(name)
+        ?: safeDefault
+
+val apiBaseUrl = environmentValue("API_BASE_URL", "https://example.invalid/api/")
+require(apiBaseUrl.startsWith("https://") && apiBaseUrl.endsWith("/")) {
+    "API_BASE_URL must be an HTTPS URL ending in '/'."
+}
+val mapsApiKey = environmentValue("MAPS_API_KEY", "MISSING_MAPS_API_KEY")
 
 android {
     namespace = "com.example.tubarriolimpioapp"
@@ -19,6 +40,8 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        buildConfigField("String", "API_BASE_URL", "\"$apiBaseUrl\"")
+        manifestPlaceholders["mapsApiKey"] = mapsApiKey
     }
 
     buildTypes {
@@ -31,6 +54,7 @@ android {
         }
     }
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
@@ -39,6 +63,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -52,6 +77,7 @@ android {
 
 dependencies {
 
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

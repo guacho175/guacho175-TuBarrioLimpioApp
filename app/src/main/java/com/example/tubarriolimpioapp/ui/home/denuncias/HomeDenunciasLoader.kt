@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tubarriolimpioapp.R
 import com.example.tubarriolimpioapp.data.model.DenunciaResponse
 import com.example.tubarriolimpioapp.data.network.ApiClient
+import com.example.tubarriolimpioapp.data.network.ApiConfig
 import com.example.tubarriolimpioapp.ui.home.HomeActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -89,7 +90,7 @@ object HomeDenunciasLoader {
         return if (path.startsWith("http")) {
             path
         } else {
-            "https://tubarriolimpio.space$path"
+            "${ApiConfig.BASE_ORIGIN}$path"
         }
     }
 }

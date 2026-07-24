@@ -1,19 +1,48 @@
-# Android / Gradle
-/.gradle/
-/build/
-/app/build/
-/local.properties
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+local.properties
+secrets.properties
+google-services.json
 
-# IDE / Android Studio
-/.idea/
-/*.iml
-
-# Outputs
-*.apk
-*.aab
-/app/release/
-
-# Keys / signing (NO subir nunca)
- /keys/
+# Signing keys and certificates
+keys/
 *.jks
 *.keystore
+*.p12
+*.pfx
+*.pem
+*.key
+
+# Android / Gradle outputs and caches
+.gradle/
+build/
+**/build/
+captures/
+externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+*.ap_
+*.dex
+
+# IDE and editor state
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+
+# Logs, coverage and temporary files
+*.log
+*.hprof
+*.tmp
+*.bak
+*.swp
+coverage/
+
+# Operating-system metadata
+.DS_Store
+Thumbs.db
+desktop.ini
