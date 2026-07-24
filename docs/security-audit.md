@@ -5,7 +5,7 @@ Alcance: estado actual, historial Git completo disponible localmente, dependenci
 
 ## Resumen ejecutivo
 
-El repositorio remoto ya es público. Se encontró una clave de Google Maps versionada desde el commit inicial y presente en los seis commits publicados. La clave fue retirada del árbol de trabajo local, pero esa corrección aún no está publicada y un commit normal no eliminaría las copias históricas.
+El repositorio remoto ya es público. Se encontró una clave de Google Maps versionada desde el commit inicial y presente en los seis commits publicados. La clave fue retirada del código y el historial local fue reescrito y verificado, pero esa corrección aún no está publicada. El remoto conserva las copias históricas hasta que se ejecute el push forzado autorizado.
 
 La clave debe considerarse comprometida y rotarse antes de reescribir el historial. Dado que el repositorio solo tiene una rama, seis commits, cero forks, cero estrellas, cero etiquetas y cero releases, la recomendación actual es conservar el repositorio y sanear su historial. Si se prefiere mantener el historial original como archivo privado, la alternativa es privatizarlo y publicar una copia nueva con historial limpio.
 
@@ -24,7 +24,7 @@ La clave debe considerarse comprometida y rotarse antes de reescribir el histori
 - Archivo: `app/src/main/AndroidManifest.xml`.
 - Primera aparición confirmada: commit `49155b88` (línea histórica 82).
 - Detección: regla `gcp-api-key` de Gitleaks.
-- Estado del árbol de trabajo local: retirada y sustituida por `MAPS_API_KEY`.
+- Estado local: retirada, sustituida por `MAPS_API_KEY` y eliminada del historial reescrito.
 - Estado remoto: la corrección aún no está publicada y la clave permanece accesible en los seis commits.
 - Riesgo: la clave debe considerarse comprometida aunque tenga restricciones.
 - Acción obligatoria: restringir, rotar y posteriormente eliminar la clave antigua.
@@ -73,7 +73,8 @@ Después de corregir la herencia del tema específico de Android 10, se ejecutar
 - Compilación `assembleDebug`: correcta.
 - Android lint: 0 errores y 142 advertencias.
 - Búsqueda de claves con patrón de Google en archivos rastreados del árbol de trabajo: 0 hallazgos.
-- Búsqueda histórica: hallazgos en los seis commits publicados.
+- Gitleaks sobre el historial local reescrito: 0 hallazgos.
+- Historial remoto todavía publicado: hallazgos en los seis commits originales.
 
 Las pruebas existentes son únicamente las de plantilla y no validan los flujos funcionales de la aplicación. Las advertencias de lint deben revisarse como deuda técnica, aunque no bloquean el build actual.
 
@@ -113,8 +114,8 @@ Alternativa conservadora: cambiar el repositorio actual a privado y crear uno p�
 ## Checklist previo a publicación
 
 - [ ] Clave histórica rotada y revocada.
-- [ ] Estrategia confirmada: reescritura del repositorio actual o reemplazo por uno público nuevo.
-- [ ] Gitleaks sin hallazgos en estado actual e historial publicable.
+- [x] Estrategia confirmada: reescritura del repositorio actual.
+- [x] Gitleaks sin hallazgos en estado actual e historial local publicable.
 - [ ] Historial saneado o repositorio público creado con historial nuevo.
 - [ ] Restricciones de la nueva clave verificadas en Google Cloud.
 - [ ] Migración del token a almacenamiento respaldado por Android Keystore evaluada.
